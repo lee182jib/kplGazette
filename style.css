@@ -1,0 +1,348 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@200;400;700;800&display=swap');
+
+* {
+  box-sizing: border-box;
+  font-family: 'Montserrat', sans-serif;
+  text-decoration: none;
+}
+
+body {
+  background-color: #F6F7EB;
+}
+
+a { 
+  color: inherit;
+ } 
+
+ img {
+  width: 100%;
+  object-fit: cover;
+  height: 100%;
+ }
+
+.top-bar {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  background: #393E41;
+  color: azure;
+  padding: 3px;
+  font-size: 0.7em;
+}
+
+.container {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  justify-content: center;
+  align-items: center;
+  max-width: 900px;
+  margin: auto;
+}
+
+header {
+  width: 100%;
+  background-color: #E94F37;
+  color: #F6F7EB;
+  margin: 5px;
+  text-decoration: none;
+  position: relative;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+button {
+  
+}
+
+
+header h2 {
+  text-align: center;
+  font-size: 3.5em;
+  margin: auto;
+  padding: 8px;
+  font-style: italic;
+  font-weight: 800;
+  text-decoration: none;
+}
+
+header h5 {
+  padding-left: 5px;
+}
+
+.main-story h3 {
+  font-size: 2em;
+}
+
+.exclusive {
+  background-color: yellow;
+  padding: 10px;
+  height: 50px;
+  position: absolute;
+  top: 50px;
+  height: auto;
+}
+
+.stories {
+  display: grid;
+  grid-gap: 15px;
+  cursor: pointer;
+}
+
+.story {
+  display: grid;
+  grid-template-rows: auto 200px 4em;
+  border-bottom: 2px solid #00bbf8;
+}
+
+.story img {
+  width: 100%;
+  object-fit: cover;
+  height: 100%;
+}
+
+.story .headline {
+  background: #3F88C5;
+  width: 100%;
+  bottom: 30%;
+  color: #f6f7eb;
+  margin: 0;
+  padding: 5px;
+}
+
+.cricket {
+  cursor: url(cricket.png);
+}
+
+.story .article {
+  margin: 0;
+  background: rgba(0,187,248, 0.5);
+  padding: 3px;
+}
+
+ .main-story {
+  grid-column: 1/-1;
+  position: relative;
+}
+
+.main-article {
+  
+}
+
+/* Binned Players */
+
+.info {
+  display: flex;
+  margin: 10px;
+}
+
+.worst-player {
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+  background-color: #00BBF8;
+}
+
+.wp-photo img {
+  width: 100%;
+  object-fit: cover;
+  height: 100%;
+  background-color: #3F88C5;
+}
+
+.wp-news {
+  font-style: italic;
+  font-weight: 100;
+}
+
+.chucked-main {
+  width: 100%;
+  display: grid;
+  grid-gap: 8px;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+}
+
+.wp-info {
+  height: 100px;
+  background-color: #00BBF8;
+  padding: 10px 5px;
+}
+
+.wp-name {
+  font-weight: 700;
+}
+
+/* best players */
+
+.dm-intro {
+  
+}
+
+.dm-intro h2 {
+  
+}
+
+.dm-intro image {
+  
+}
+
+.dm-intro p {
+ 
+}
+
+.best-container {
+  width: 100%;
+  display: grid;
+  grid-gap: 8px;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+}
+
+.best-player {
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+  background-color: #00BBF8;
+}
+
+.best-name {
+  font-weight: 700;
+}
+
+.best-img img {
+  width: 100%;
+  object-fit: cover;
+  height: 100%;
+  background-color: #3F88C5;
+}
+
+/* hip players */
+.hipster-container {
+  width: 100%;
+  display: grid;
+  grid-gap: 8px;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+}
+
+.hip-player {
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+  background-color: #00BBF8;
+
+}
+
+.hip-name {
+  font-weight: 700;
+}
+
+.hip-percent {
+  font-style: italic;
+  font-weight: 200;
+}
+
+.hip-img {
+  width: 100%;
+  object-fit: cover;
+  height: 100%;
+  background-color: #3F88C5;
+}
+
+/* SpotLight */
+.spotlight-container {
+  width: 100%;
+  display: grid;
+  grid-gap: 10px;
+  grid-template-columns: 2fr 3fr;
+  height: 100vh;
+}
+
+.spotlight-past {
+  display: grid;
+  
+  width: 100%;
+  grid-gap: 5px;
+}
+
+.spotlight-current {
+  background-color: #00BBF8;
+}
+
+.spotlight-box {
+  padding: 5px;
+}
+
+.spotlight-box:nth-child(odd) {
+  background-color: #3F88C5;
+}
+
+.current-box {
+  padding: 10px;
+}
+
+.current-box img {
+  padding: 0;
+}
+
+/* Riddle corner */
+.riddle-area {
+  margin: 30px;
+}
+
+.clue-container {
+  background-color: #fff;
+  text-align: center;
+}
+
+.clue {
+  padding: 4px;
+}
+
+.riddle-input {
+  width: 500px;
+}
+
+
+
+@media (min-width: 1200px) {
+  .stories {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+@media (max-width: 1200px) {
+  .stories {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+@media (max-width: 760px) {
+  .stories {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 500px) {
+  .stories {
+    grid-template-columns: repeat(1, 1fr);
+  }
+
+  .spotlight-container {
+    grid-template-columns: 1fr;
+  }
+
+
+  .story {
+    grid-column: 1/-1;
+  }
+
+  .exclusive {
+    top: 90px;
+  }
+
+  .spotlight-container {
+    grid-template-columns: 1fr;
+  }
+
+  
+}
