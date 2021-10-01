@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" integrity="sha512-1ycn6IcaQQ40/MKBW2W4Rhis/DbILU74C1vSrLJxCq57o941Ym01SwNsOMqvEBFlcgUa6xLiPY/NS5R+E6ztJQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <title id="gameweek">Document</title>
+</head>
+
+<body class="gameweek">
+  <div class="container">
+    <header>
+      <div class="top-bar">
+        <p>Fast Stats. Breakneck News</p>
+        <p id="gameweek"></p>
+      </div>
+      <a href="index.html">
+        <h1 class="site-name">KPL GAZETTE</h1>
+      </a>
+    </header>
+
+    <h2 class="page-headline" id="gameweek-headline"></h2>
+
+
+    <div id="countdown" class="countdown">
+
+      <div class="time">
+        <h2 id="days">00</h2>
+        <small class="time-unit">days</small>
+      </div>
+      <div class="time">
+        <h2 id="hours">00</h2>
+        <small class="time-unit">hours</small>
+      </div>
+      <div class="time">
+        <h2 id="minutes">00</h2>
+        <small class="time-unit">minutes</small>
+      </div>
+      <div class="time">
+        <h2 id="seconds">00</h2>
+        <small class="time-unit">seconds</small>
+      </div>
+      <h4 class="page-headline">Time left to change your awful team</h4>
+    </div>
+
+    <div class="chips" id="chips">
+
+      <div class="chip">
+        <h2 id="benchboost">0</h2>
+        <small>Bench Boosts Played</small>
+      </div>
+      <div class="chip">
+        <h2 id="freehit">0</h2>
+        <small>Free Hits Played</small>
+      </div>
+      <div class="chip">
+        <h2 id="wildcard">0</h2>
+        <small>Wild Cards Played</small>
+      </div>
+      <div class="chip">
+        <h2 id="tripplecaptain">0</h2>
+        <small>Tripple Captains Played</small>
+      </div>
+
+    </div>
+
+    <div class="most-selected-transferred">
+
+      <div class="most-selected">
+        <p class="most-title">Most Selected</p>
+        <p id="selected-player" class="selected-player">X</p>
+        <div id="selected-img" class="selected-img"></div>
+      </div>
+
+      <div class="most-transferred">
+        <p class="most-title">Most Transferred In</p>
+        <p id="transferred-player" class="transferred-player">X</p>
+        <div id="transferred-img" class="transferred-img"></div>
+      </div>
+
+    </div>
+
+    <div class="captained">
+
+        <div class="most-cap">
+          <p class="most-title">Most Selected Captain</p>
+          <p id="cap-player" class="cap-player">X</p>
+          <div id="cap-img" class="cap-img"></div>
+        </div>
+  
+        <div class="most-vice-cap">
+          <p class="most-title">Most Selected Vice Captain</p>
+          <p id="vice-cap-player" class="vice-cap-player">X</p>
+          <div id="vice-cap-img" class="transferred-img"></div>
+        </div>
+  
+      </div>
+      <footer>
+          <p>Powered by HUEL <i class="fas fa-copyright"></i></p>
+          <i class="fab fa-twitter"></i>
+        </footer>
+
+  </div>
+</body>
+<script src="script.js"></script>
+
+</html>
