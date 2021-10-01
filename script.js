@@ -1,198 +1,178 @@
-// Worst Player DOM 
-const wpName = document.getElementById('wp-name');
-const wpTransfers = document.getElementById('wp-transfers');
-const wpNews = document.getElementById('wp-news');
-const wpPhoto = document.getElementById('wp-photo');
+// Front page DOM
+const gameWeekDisplay = document.getElementById('gameweek');
+const gameWeekHeadline = document.getElementById('gameweek-headline');
+
+// Gameweek DOM
+const days = document.getElementById('days');
+const hours = document.getElementById('hours');
+const minutes = document.getElementById('minutes');
+const seconds = document.getElementById('seconds');
+const loading = document.getElementById('loading');
+
+const benchBoost = document.getElementById('benchboost');
+const freeHit = document.getElementById('freehit');
+const wildCard = document.getElementById('wildcard');
+const trippleCaptain = document.getElementById('tripplecaptain');
+
+const selectedPlayer = document.getElementById('selected-player');
+const selectedImg = document.getElementById('selected-img');
+
+const transferredPlayer = document.getElementById('transferred-player');
+const transferredImg = document.getElementById('transferred-img');
+
+const capPlayer = document.getElementById('cap-player');
+const capImg = document.getElementById('cap-img');
+const viceCapPlayer = document.getElementById('vice-cap-player');
+const viceCapImg = document.getElementById('vice-cap-img')
+
+// Chucks Player DOM 
+const playerName = document.getElementById('player-name');
+const playerTransfers = document.getElementById('player-transfers');
+const playerNews = document.getElementById('player-news');
+const playerPhoto = document.getElementById('player-photo');
 const main = document.getElementById('chucked-main');
 
-// David May DOM 
-const bestContainer = document.getElementById('best-container');
-const bestName = document.getElementById('best-name');
-const bestImg = document.getElementById('best-img');
-const bestThreat = document.getElementById('best-threat');
-const bestInfluence = document.getElementById('best-influence');
-const bestCreativity = document.getElementById('best-creativity');
+// David May DOM
+const keeperArea = document.getElementById('keeper');
+const defenderArea = document.getElementById('defenders');
+const midfielderArea = document.getElementById('midfielders');
+const forwardArea = document.getElementById('forwards');
+
+const statKeeper = document.getElementById('stat-keeper');
+const defStat = document.getElementById('def-stat');
+const midStat = document.getElementById('mid-stat');
+const fwdStat = document.getElementById('fwd-stat');
+
 
 // Hipster DOM
-const hipsterConatiner = document.getElementById('hipster-container');
+const keeperAreaHipster = document.getElementById('keeper-hipster');
+const defenderAreaHipster = document.getElementById('defenders-hipster');
+const midfielderAreaHipster = document.getElementById('midfielders-hipster');
+const forwardAreaHipster = document.getElementById('forwards-hipster');
 
-// Spotlight DOM
-const spotlightPast = document.getElementById('spotlight-past');
-const spotlightCurrent = document.getElementById('spotlight-current');
+const statKeeperHip = document.getElementById('stat-keeper-hip');
+const defStatHip = document.getElementById('def-stat-hip');
+const midStatHip = document.getElementById('mid-stat-hip');
+const fwdStatHip = document.getElementById('fwd-stat-hip');
 
-// Monty DOM
-const clueContainer = document.getElementById('clue-container');
-const riddleInput = document.getElementById('riddle-input');
-const riddleSubmit = document.getElementById('riddle-submit');
-const riddleRefresh = document.getElementById('riddle-refresh')
-
-
-
-
-
-
-// Best player box
-function createBestBox(item) {
-  let {
-    influence,
-    creativity,
-    threat,
-    first_name,
-    second_name,
-    photo
-  } = item;
-
-  const bestBox = document.createElement('div');
-
-  bestBox.classList.add('best-player');
-
-  const dmRating = Math.floor((+item.influence + +item.threat + +item.creativity) / 3);
-
-  bestBox.innerHTML = `
-  <div class="best-player">
-    <div class="best-name">${first_name}  ${second_name}</div>
-    
-    <div class="dm-rating">DMFR: ${dmRating}</div>
-    <div class="best-img dm-img"><img src="https://resources.premierleague.com/premierleague/photos/players/250x250/p${photo.replace('jpg', 'png')}" alt=""></div>
-  </div>
-  `
-  bestContainer.appendChild(bestBox);
-}
-
-//David may box
-function davidMayBox() {
-  const mayBox = document.createElement('div');
-
-  mayBox.classList.add('best-player');
-
-  mayBox.innerHTML = `
-    <div class="best-player">
-    <div class="best-name">David May</div>
-  
-    <div class="dm-rating">DMFR: 10,000</div>
-    <div class="best-img"><img src="img/dMay4.jpg"></div>
-</div>
-  `
-
-  bestContainer.appendChild(mayBox);
-}
-
-
-// David May
-function davidMayApproved() {
+// find  and display current gameweek stats
+function findGameWeek() {
   fetch('bootstrap-static.json')
     .then(res => res.json())
     .then(data => {
+      const gameWeeks = data.events;
       const players = data.elements;
+      
 
-      // filter array to players with 100 chance of playing this week and next
-      const matchFit = players.filter(fit => fit.chance_of_playing_this_round === 100 && fit.chance_of_playing_next_round === 100);
+      for (i = 0; i < gameWeeks.length - 1; i++) {
+        if (gameWeeks[i].is_current === true) {
+          // get current week
+          var gameWeek = gameWeeks[i];
+          console.log(gameWeek);
+          gameWeekDisplay.innerHTML = `${gameWeek.name}`;
+          gameWeekHeadline.innerHTML = `${gameWeek.name} at a Glance`;
+          // get next week
+          var deadlineWeek = gameWeeks[i + 1];
+        }
 
-      // Sort by threat and reduce to 30
-      const threat = matchFit.sort(function (a, b) {
-        return b.threat - a.threat;
-      })
-      threat.splice(30, matchFit.length)
+      }
+      var deadline = deadlineWeek.deadline_time;
 
-      //sort by creativity and reduce to 20
-      const creativity = threat.sort(function (a, b) {
-        return b.creativity - a.creativity;
-      })
-      creativity.splice(20, threat.length);
+      
+      console.log(new Date(deadline));
 
-      // Sort players by influence and reduce array to 10
-      const influence = creativity.sort(function (a, b) {
-        return b.influence - a.influence;
-      })
-      influence.splice(10, creativity.length);
+      // find most selected player
+      const mostSelectedId = gameWeek.most_selected;
+      for (i = 0; i < players.length; i++) {
+        if (mostSelectedId === players[i].id) {
+          var mostSelectedPlayer = players[i];
+        }
+      }
+      console.log(mostSelectedPlayer);
+
+      // find most transferred in player
+      const mostTransferredInId = gameWeek.most_transferred_in;
+      for (i = 0; i < players.length; i++) {
+        if (mostTransferredInId === players[i].id) {
+          var mostTransferredInPlayer = players[i];
+        }
+      }
+
+      // find most captained and vice captained
+      const mostCapId = gameWeek.most_captained;
+      for (i = 0; i < players.length; i++) {
+        if (mostCapId === players[i].id) {
+          var mostCap = players[i];
+        }
+      }
+
+      const mostViceCapId = gameWeek.most_vice_captained;
+      for (i = 0; i < players.length; i++) {
+        if (mostViceCapId === players[i].id) {
+          var mostViceCap = players[i];
+        }
+      }
+
+      // display most selected/transferred player
+      selectedPlayer.innerHTML = `${mostSelectedPlayer.web_name}<hr>Selected by ${mostSelectedPlayer.selected_by_percent}% of managers`;
+      selectedImg.innerHTML = `<img src="https://resources.premierleague.com/premierleague/photos/players/250x250/p${mostSelectedPlayer.photo.replace('jpg', 'png')}" alt=""></div>`;
+
+      transferredPlayer.innerHTML = `${mostTransferredInPlayer.web_name}<hr>${mostTransferredInPlayer.transfers_in_event.toLocaleString()} transfers this week`;
+      transferredImg.innerHTML = `<img src="https://resources.premierleague.com/premierleague/photos/players/250x250/p${mostTransferredInPlayer.photo.replace('jpg', 'png')}" alt=""></div>`;
+
+      // display most captained and vice captained
+      capPlayer.innerHTML = `${mostCap.web_name}`
+      capImg.innerHTML = `<img src="https://resources.premierleague.com/premierleague/photos/players/250x250/p${mostCap.photo.replace('jpg', 'png')}" alt=""></div>`
+
+      viceCapPlayer.innerHTML = `${mostViceCap.web_name}`
+      viceCapImg.innerHTML = `<img src="https://resources.premierleague.com/premierleague/photos/players/250x250/p${mostViceCap.photo.replace('jpg', 'png')}" alt=""></div>`
 
 
-      influence.forEach(createBestBox);
+
+      // find chip plays info
+      const benchBoosts = gameWeek.chip_plays[0].num_played;
+      const freeHits = gameWeek.chip_plays[1].num_played;
+      const wildCards = gameWeek.chip_plays[2].num_played;
+      const trippleCaptains = gameWeek.chip_plays[3].num_played
+      console.log(trippleCaptains);
+
+      function deadlineCountdown(deadline) {
+        const total = Date.parse(deadline) - Date.parse(new Date());
+        const s = Math.floor((total / 1000) % 60);
+        const m = Math.floor((total / 1000 / 60) % 60);
+        const h = Math.floor((total / (1000 * 60 * 60)) % 24);
+        const d = Math.floor(total / (1000 * 60 * 60 * 24));
+
+        days.innerHTML = d;
+        hours.innerHTML = h < 10 ? '0' + h : h;
+        minutes.innerHTML = m < 10 ? '0' + m : m;
+        seconds.innerHTML = s < 10 ? '0' + s : s;
+
+      }
+
+      setInterval(function () {
+        deadlineCountdown(deadline);
+      }, 1000);
+
+      console.log(gameWeek);
+
+      
+
+      benchBoost.innerHTML = `${benchBoosts.toLocaleString()}`;
+      freeHit.innerHTML = `${freeHits.toLocaleString()}`;
+      wildCard.innerHTML = `${wildCards.toLocaleString()}`;
+      trippleCaptain.innerHTML = `${trippleCaptains.toLocaleString()}`;
     })
 }
 
+// Chucks
 
+const reasons = ['Cancelled', 'Deported', 'Shit', 'Caught flouting lockdown rules', 'Struck a fan', 'Prick', 'Some changing room drama'];
 
-
-
-
-
-
-
-
-
-// Hipster box
-function createHipBox(item) {
-  const hipBox = document.createElement('div');
-
+function createChuckedBox(item) {
+  const card = document.createElement('div');
   let {
-    first_name,
-    second_name,
-    photo,
-    selected_by_percent,
-    points_per_game
-  } = item;
-
-  hipBox.classList.add('best-hipster');
-
-  hipBox.innerHTML = `
-    <div class="hip-player">
-
-    <div class="hip-name">${first_name} ${second_name}</div>
-   
-    <div class="hip-percent">Selected by ${selected_by_percent}% of managers</div>
-
-    <div class="hipPoints">${points_per_game} points per game</div>
-   
-    <div class="hip-img"><img src="https://resources.premierleague.com/premierleague/photos/players/250x250/p${photo.replace('jpg', 'png')}" alt=""></div>
-    </div>
-  `
-
-  hipsterConatiner.appendChild(hipBox);
-}
-
-
-// Narrow down hipster players
-function hipsterPlayers() {
-  fetch('bootstrap-static.json')
-    .then(res => res.json())
-    .then(data => {
-      const players = data.elements;
-
-      // sort players by 'selected by percent'
-      const percent = players.sort(function (a, b) {
-        return b.selected_by_percent - a.selected_by_percent;
-      })
-
-      // remove top 50 players
-      const hipPercent = percent.splice(0, 50);
-
-      // reduce hipPercent array to 25
-      let topHip = hipPercent.splice(25, hipPercent.length);
-      topHip = topHip.sort(function (a,b){
-        return b.points_per_game - a.points_per_game;
-      })
-
-      topHip.forEach(createHipBox);
-    })
-}
-
-
-
-
-
-
-
-
-
-
-//Worst player 
-const reasons = ['Cancelled', 'Deported', 'Shit', 'Caught flouting lockdown rules', 'Struck a fan', 'Prick'];
-
-function createWorstBox(item) {
-
-  const box = document.createElement('div');
-  let {
+    transfers_out,
     transfers_out_event,
     first_name,
     second_name,
@@ -200,187 +180,475 @@ function createWorstBox(item) {
     photo
   } = item;
 
-  box.classList.add('worst-player');
-
   if (news === '') {
     news = reasons[Math.floor(Math.random() * reasons.length)]
   }
 
-  box.innerHTML = `
-    <div class="wp-info">
-      <div class="wp-name">${first_name}  ${second_name}</div>
-      <div class="wp-news">${news}</div>
-      <div class="wp-transfers">${transfers_out_event} Chucks</div>
+  card.classList.add('worst-player');
+
+  card.innerHTML = `
+    <div class="player-card">
+    <h3 class="player-name">${first_name}  ${second_name}</h3>
+    <div class="player-photo"><img src="https://resources.premierleague.com/premierleague/photos/players/250x250/p${photo.replace('jpg', 'png')}" alt=""></div>
+    <div class="transfers-news">
+      <div class="player-transfers">${transfers_out_event.toLocaleString()} transfers out this week</div>
+      <div class="player-transfers">${transfers_out.toLocaleString()} transfers out this season</div>
+      <hr>
+      <div class="player-news"><em>${news}</em></div>
     </div>
-      <div class="wp-photo"><img src="https://resources.premierleague.com/premierleague/photos/players/250x250/p${photo.replace('jpg', 'png')}" alt=""></div>
-      
   `
-  main.appendChild(box);
+  main.appendChild(card);
 
 }
 
-function fetchPlayerOutData() {
+function fetchChuckData() {
   fetch('bootstrap-static.json')
     .then(res => res.json())
     .then(data => {
-      const players = data.elements;
-
-      const playersOut = players.sort(function (a, b) {
+      const playersOut = data.elements.sort(function (a, b) {
         return b.transfers_out_event - a.transfers_out_event;
       });
 
-      playersOut.splice(50, playersOut.length);
+      playersOut.splice(10, playersOut.length);
 
-      playersOut.forEach(createWorstBox);
-
-    });
-};
-
-
-
-
-
-
-// Create spotlight card for each season
-function createSpotlightBox(item) {
-  const spotlightBox = document.createElement('div');
-
-  let {
-    season_name,
-    total_points,
-    minutes,
-    goals_scored,
-    assists,
-    own_goals,
-  } = item;
-
-  spotlightBox.classList.add('spotlight-box');
-
-  spotlightBox.innerHTML = `
-  <div><b>${season_name}</b></div>
-  <div>Total Points: ${total_points}</div>
-  <div>Minutes Played: ${minutes}</div>
-  <div>Goals Scored: ${goals_scored}</div>
-  <div>Assists: ${assists}</div>
-  <div>Own Goals: ${own_goals}</div>
-  `
-
-  spotlightPast.appendChild(spotlightBox);
+      playersOut.forEach(createChuckedBox)
+    })
 }
 
-// Player Spotlight
-function fetchSpotlightData() {
-  fetch('rashford.json')
-    .then(res => res.json())
-    .then(data => {
-      const spotlightData = data.history_past;
+fetchChuckData();
 
-      spotlightData.forEach(createSpotlightBox);
-    })
+// David May
 
+
+// find best keeper
+function findBestGk() {
   fetch('bootstrap-static.json')
     .then(res => res.json())
     .then(data => {
-      const rashData = data.elements[433];
+      let keepers = data.elements.filter(gk => gk.element_type === 1);
 
-      let {
-        goals_scored,
-        points_per_game,
-        selected_by_percent,
-        assists,
-        own_goals,
-        yellow_cards,
-        red_cards,
-        photo,
-        total_points,
-        minutes
-      } = rashData;
+      bestKeepers = keepers.sort(function (a, b) {
+        return b.total_points - a.total_points;
+      })
 
-      const currentSpotlight = document.createElement('div');
+      var bestKeeper = bestKeepers[0]
 
-      currentSpotlight.classList.add('current-box');
+      createKeeperBox(bestKeeper);
+    })
+}
 
-      currentSpotlight.innerHTML = `
-    <h1>2020/21</h1>
-    <div>Total Points: ${total_points}</div>
-    <div>Minutes Played: ${minutes}
-    <div>Goals Scored: ${goals_scored}</div>
-    <div>Assists: ${assists}</div>
-    <div>Own Goals: ${own_goals}</div>
-    <div>Yeallow Cards: ${yellow_cards}</div>
-    <div>Red Cards: ${red_cards}</div>
-    <div><img src="https://resources.premierleague.com/premierleague/photos/players/250x250/p${photo.replace('jpg', 'png')}" alt=""></div>
-    <p>Should Marcus recieve bonus points for his important work feeding the nation's hungry children? This reporter believes he should.</p>
+// create best keeper card
+function createKeeperBox(item) {
 
-    `
-      spotlightCurrent.appendChild(currentSpotlight);
+  const card = document.createElement('div');
+  card.classList.add('keeper');
 
+  let {
+    web_name,
+    photo,
+    points_per_game,
+    total_points
+  } = item;
+
+
+  card.innerHTML = `
+  <div class="may-card"><img class="player-photo" src="https://resources.premierleague.com/premierleague/photos/players/250x250/p${photo.replace('jpg', 'png')}" alt="">
+  <p class="may-name">${web_name}</p>
+  </div>
+`
+
+  keeperArea.appendChild(card);
+
+  statKeeper.innerHTML = `
+  <p>${web_name}</p>
+  <p>${points_per_game}</p>
+  <p>${total_points}</p>`;
+}
+
+
+
+
+// find best defenders
+function findBestDef() {
+  fetch('bootstrap-static.json')
+    .then(res => res.json())
+    .then(data => {
+      let defenders = data.elements.filter(df => df.element_type === 2);
+
+      bestDefenders = defenders.sort(function (a, b) {
+        return b.total_points - a.total_points;
+      })
+
+      var bestDefenders = defenders.slice(0, 3);
+
+      bestDefenders.forEach(createDefBoxes);
 
     })
+}
+
+// create best defender cards
+function createDefBoxes(item) {
+
+  const card = document.createElement('div');
+  card.classList.add('defender');
+  let {
+    web_name,
+    photo,
+    points_per_game,
+    total_points
+  } = item;
+
+
+  card.innerHTML = `
+  <div class="may-card"><img class="player-photo" src="https://resources.premierleague.com/premierleague/photos/players/250x250/p${photo.replace('jpg', 'png')}" alt="">
+  <p class="may-name">${web_name}</p>
+  </div>
+  
+`
+  defenderArea.appendChild(card);
+
+  defStat.insertAdjacentHTML('beforeend', `
+  <div class="stat-def">
+    <p>${web_name}</p>
+    <p>${points_per_game}</p>
+    <p>${total_points}</p>
+  </div>
+  `);
+
+}
+
+// find best midfielders
+function findBestMid() {
+  fetch('bootstrap-static.json')
+    .then(res => res.json())
+    .then(data => {
+      let midfielders = data.elements.filter(md => md.element_type === 3);
+
+      bestMidfielders = midfielders.sort(function (a, b) {
+        return b.total_points - a.total_points;
+      })
+
+      var bestMidfielders = midfielders.slice(0, 4);
+
+      bestMidfielders.forEach(createMidBoxes);
+    })
+}
+
+// create best midfielder cards
+function createMidBoxes(item) {
+
+  const card = document.createElement('div');
+  card.classList.add('midfielder');
+
+  let {
+    web_name,
+    photo,
+    points_per_game,
+    total_points
+  } = item;
+
+  card.innerHTML = `
+  <div class="may-card"><img class="player-photo" src="https://resources.premierleague.com/premierleague/photos/players/250x250/p${photo.replace('jpg', 'png')}" alt="">
+  <p class="may-name">${web_name}</p>
+  </div>
+`
+  midfielderArea.appendChild(card);
+
+  midStat.insertAdjacentHTML('beforeend', `
+  <div class="stat-mid">
+    <p>${web_name}</p>
+    <p>${points_per_game}</p>
+    <p>${total_points}</p>
+  </div>
+  `);
 
 }
 
 
+// find best forwards
+function findBestFwd() {
+  fetch('bootstrap-static.json')
+    .then(res => res.json())
+    .then(data => {
+      let forwards = data.elements.filter(fwd => fwd.element_type === 4);
+
+      bestForwards = forwards.sort(function (a, b) {
+        return b.total_points - a.total_points;
+      })
+
+      var bestForwards = forwards.slice(0, 2);
+      console.log(bestForwards);
+      bestForwards.forEach(createFwdBoxes);
+    })
+}
+
+// create forward cards
+function createFwdBoxes(item) {
+
+  const card = document.createElement('div');
+  card.classList.add('forward');
+
+  let {
+    web_name,
+    photo,
+    points_per_game,
+    total_points
+  } = item;
+
+  card.innerHTML = `
+  <div class="may-card"><img class="player-photo" src="https://resources.premierleague.com/premierleague/photos/players/250x250/p${photo.replace('jpg', 'png')}" alt="">
+  <p class="may-name">${web_name}
+  </div>
+`
+  forwardArea.appendChild(card);
+
+  fwdStat.insertAdjacentHTML('beforeend', `
+  <div class="stat-fwd">
+    <p>${web_name}</p>
+    <p>${points_per_game}</p>
+    <p>${total_points}</p>
+  </div>
+  `);
+  
+}
+
+// Hipster
+
+// Find hipster GK
+
+function findHipsterGk() {
+  fetch('bootstrap-static.json')
+    .then(res => res.json())
+    .then(data => {
+      let keepers = data.elements.filter(gk => gk.element_type === 1);
+
+      // sort keepers by %
+      let percentKeepers = keepers.sort(function (a, b) {
+        return b.selected_by_percent - a.selected_by_percent;
+      })
+
+      // pick 10th most selected keeper
+      const hipKeeper = percentKeepers[9];
+
+      createHipsterKeeperBox(hipKeeper);
+    })
+}
+
+// find hipster defenders
+
+function findHipsterDefenders() {
+  fetch('bootstrap-static.json')
+    .then(res => res.json())
+    .then(data => {
+      let defenders = data.elements.filter(df => df.element_type === 2);
+
+      const percentDefenders = defenders.sort(function (a, b) {
+        return b.selected_by_percent - a.selected_by_percent;
+      })
+
+      const hipDefenders = percentDefenders.splice(15, 4);
+      hipDefenders.forEach(createHipsterDefBoxes)
+    })
+}
+
+// find hipster midfielders
+
+function findHipsterMidfielders() {
+  fetch('bootstrap-static.json')
+    .then(res => res.json())
+    .then(data => {
+      let midfielders = data.elements.filter(df => df.element_type === 3);
+
+      const percentMidfielders = midfielders.sort(function (a, b) {
+        return b.selected_by_percent - a.selected_by_percent;
+      })
+
+      const hipMidfielders = percentMidfielders.splice(15, 4);
+      hipMidfielders.forEach(createHipsterMidBoxes)
+    })
+}
+
+// find hipster forwards
+
+function findHipsterForwards() {
+  fetch('bootstrap-static.json')
+    .then(res => res.json())
+    .then(data => {
+      let forwards = data.elements.filter(df => df.element_type === 4);
+
+      const percentForwards = forwards.sort(function (a, b) {
+        return b.selected_by_percent - a.selected_by_percent;
+      })
+
+      const hipForwards = percentForwards.splice(10, 2);
+      hipForwards.forEach(createHipsterFwdBoxes);
+    })
+}
+
+// create hipster keeper card
+function createHipsterKeeperBox(item) {
+
+  const card = document.createElement('div');
+  card.classList.add('keeper');
+
+  let {
+    web_name,
+    photo,
+    total_points,
+    selected_by_percent
+  } = item;
+
+
+  card.innerHTML = `
+  <div class="may-card"><img class="player-photo" src="https://resources.premierleague.com/premierleague/photos/players/250x250/p${photo.replace('jpg', 'png')}" alt="">
+  <p class="may-name">${web_name}</p>
+  </div>
+`
+
+  keeperAreaHipster.appendChild(card);
+
+  statKeeperHip.insertAdjacentHTML('beforebegin', `
+  <div class="stat-keeper-hip">
+    <p>${web_name}</p>
+    <p>${total_points}</p>
+    <p>${selected_by_percent}%</p>
+  </div>
+  `);
+}
+
+// create hipster defender cards
+function createHipsterDefBoxes(item) {
+
+  const card = document.createElement('div');
+  card.classList.add('defender');
+  let {
+    web_name,
+    photo,
+    total_points,
+    selected_by_percent
+  } = item;
+
+
+  card.innerHTML = `
+  <div class="may-card"><img class="player-photo" src="https://resources.premierleague.com/premierleague/photos/players/250x250/p${photo.replace('jpg', 'png')}" alt="">
+  <p class="may-name">${web_name}</p>
+  </div>
+  
+`
+  defenderAreaHipster.appendChild(card);
+
+  defStatHip.insertAdjacentHTML('beforeend', `
+  <div class="stat-def-hip">
+  <p>${web_name}</p>
+  <p>${total_points}</p>
+  <p>${selected_by_percent}%</p>
+  </div>
+  `);
+
+}
+
+// create hipster midfielder cards
+function createHipsterMidBoxes(item) {
+
+  const card = document.createElement('div');
+  card.classList.add('midfielder');
+  let {
+    selected_by_percent,
+    web_name,
+    photo,
+    total_points
+  } = item;
+
+
+  card.innerHTML = `
+  <div class="may-card"><img class="player-photo" src="https://resources.premierleague.com/premierleague/photos/players/250x250/p${photo.replace('jpg', 'png')}" alt="">
+  <p class="may-name">${web_name}
+  </p>
+  </div>
+  
+`
+  midfielderAreaHipster.appendChild(card);
+
+  midStatHip.insertAdjacentHTML('beforeend', `
+  <div class="stat-mid-hip">
+  <p>${web_name}</p>
+  <p>${total_points}</p>
+  <p>${selected_by_percent}%</p>
+  </div>
+  `);
+
+}
+
+// create hipster forward cards
+function createHipsterFwdBoxes(item) {
+
+  const card = document.createElement('div');
+  card.classList.add('forward');
+  let {
+    web_name,
+    photo,
+    selected_by_percent,
+    total_points
+  } = item;
+
+
+  card.innerHTML = `
+  <div class="may-card"><img class="player-photo" src="https://resources.premierleague.com/premierleague/photos/players/250x250/p${photo.replace('jpg', 'png')}" alt="">
+  <p class="may-name">${web_name}</p>
+  </div>
+  
+`
+  forwardAreaHipster.appendChild(card);
+
+  fwdStatHip.insertAdjacentHTML('beforeend', `
+  <div class="stat-fwd-hip">
+  <p>${web_name}</p>
+  <p>${total_points}</p>
+  <p>${selected_by_percent}%</p>
+  </div>
+  `);
+
+}
+
 // Riddle time
+
+let score = 0;
+let randomPlayer = 0;
+
 function fetchRiddleData() {
   fetch('bootstrap-static.json')
     .then(res => res.json())
     .then(data => {
       const players = data.elements;
+
       const teams = data.teams;
 
-      // Sort and remove players with 0 points
-        const goodPlayers = players.sort(function (a,b) {
+      // sort and shorten list to top 350 players
+      let goodPlayers = players.sort(function (a, b) {
         return b.points_per_game - a.points_per_game;
-      })
-      console.log(goodPlayers);
-      const randomPlayer = players[Math.floor(Math.random() * 700)]
-      console.log(randomPlayer)
-      const {
-        goals_scored,
-        points_per_game,
-        selected_by_percent,
-        assists,
-        own_goals,
-        yellow_cards,
-        red_cards,
-        photo,
-        total_points,
-        minutes,
-        second_name,
-        team_code
-      } = randomPlayer;
-
-      function getTeamName() {
-        for (let i = 0; i < 20; i++) {
-          if (team_code === teams[i].code) {
-            return teams[i].name;
-          }
-        }
-      }
+      });
+      goodPlayers = goodPlayers.splice(0, 350);
 
 
-      clueContainer.innerHTML = `
-    <div class="clue">I have scored ${goals_scored} goals this season</div>
-    <div class="clue">The second letter of my surname is '${second_name.charAt(1)}'</div>
-    <div class="clue">On average, I score ${points_per_game} points per game</div>
-    <div class="clue">I have scored ${total_points} points this season</div>
-    <div class="clue">I play for ${getTeamName()}</div>
-    <div>Who Am I?</div>
-    `
+
+      randomPlayer = goodPlayers[Math.floor(Math.random() * 400)];
+
+      console.log(randomPlayer.first_name, randomPlayer.second_name);
     })
-
 }
 
 
-fetchRiddleData()
 
-fetchSpotlightData();
+findBestGk();
+findBestDef();
+findBestMid();
+findBestFwd();
 
-hipsterPlayers();
+findHipsterGk();
+findHipsterDefenders();
+findHipsterMidfielders();
+findHipsterForwards();
 
-fetchPlayerOutData();
+fetchRiddleData();
 
-davidMayApproved();
-
-davidMayBox()
+findGameWeek()
