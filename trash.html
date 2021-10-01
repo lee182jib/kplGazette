@@ -1,28 +1,43 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" integrity="sha512-1ycn6IcaQQ40/MKBW2W4Rhis/DbILU74C1vSrLJxCq57o941Ym01SwNsOMqvEBFlcgUa6xLiPY/NS5R+E6ztJQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
   <link rel="stylesheet" href="style.css">
-  <title>Chucked</title>
+  <title>This Weeks Chucks</title>
 </head>
+
 <body>
-    <div class="top-bar">
-        <div class="slogan">Proper British Football News</div>
-        <div class="date">29/04/21</div>
-        <div class="price">50p</div>
+
+  <div class="container">
+    <header>
+      <div class="top-bar">
+        <p>Fast Stats. Breakneck News</p>
+        <p id="gameweek"></p>
       </div>
-      <div class="container">
-        <header>
-          <a href="index.html"><h2>KPL GAZZETTE</h2></a>
-        </header>
+      <a href="index.html">
+        <h1 class="site-name">KPL GAZETTE</h1>
+      </a>
+    </header>
 
-        <h3>50 Most Chucked Players This Week</h3>
+    <h1 class="page-headline">Stinkers of the Week</h1>
+    <div class="stink-intro">
+      <img class="stink" src="img/stink.jpg" alt="">
+      <p>Take a look at the 10 stinkiest players this week. How many rejects do you have?</p>
+    </div>
+    <div class="card-area" id="chucked-main"></div>
 
-        <div class="chucked-main" id="chucked-main"></div>
-        
-          
-  <script src="script.js"></script>
+    <img class="stink" src="img/stink2.jpg" alt="">
+    <footer>
+        <p>Powered by HUEL <i class="fas fa-copyright"></i></p>
+        <i class="fab fa-twitter"></i>
+      </footer>
+  </div>
+
 </body>
+<script src="script.js"></script>
+
 </html>
