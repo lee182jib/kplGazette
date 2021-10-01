@@ -6,61 +6,68 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <link rel="stylesheet" href="style.css">
-  <title>KPL</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" integrity="sha512-1ycn6IcaQQ40/MKBW2W4Rhis/DbILU74C1vSrLJxCq57o941Ym01SwNsOMqvEBFlcgUa6xLiPY/NS5R+E6ztJQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <title>The KP Lang Gazzette</title>
 </head>
 
 <body>
-
-  <div class="top-bar">
-    <div class="slogan">Fast Stats. Breakneck News</div>
-    <div id="game-week" class="game-week">Game week XX</div>
-    <div class="price">50p</div>
-  </div>
   <div class="container">
     <header>
-      <h2>KPL GAZETTE</h2>
+      <div class="top-bar">
+        <p>Fast Stats. Breakneck News</p>
+        <p id="gameweek"></p>
+      </div>
+      <h1 class="site-name">KPL GAZETTE</h1>
     </header>
 
-<div class="stories">
+    <div class="stories">
 
-      <div class="story main-story">
-        <h3 class="headline">COMING ON STRONG</h3><b class="exclusive">EXCLUSIVE</b>
-        <a href="TWM.html"><img src="img/dan.jpg" alt="" class="story-img"></a>
-        <p class="article main-article"> Daniel Hughes spills the beans in his most explosive interview to date</p>
+      <div class="main-story story">
+        <img src="img/dan.jpg" alt="" class="story-img">
+        <h4>Main Story</h4>
+        <h2 class="headline">Coming on Strong</h2>
+        <h3>Dan Hughes tells all in his most explosive interview to date</h3> 
+        <hr>
+      </div>
 
-      </div>
       <div class="story">
-        <h3 class="headline">David May's Players to Watch</h3>
-        <a href="davidMay.html"><img src="img/dMay.jpg" alt="" class="story-img"></a>
-        <p class="article">Fitness messiah David May tells us who he thinks will perform best this week</p>
-      </div>
+          <a href="gameweek.html"><img src="img/this_week.jpg" alt="" class="story-img"></a>
+          <h2 class="headline" id="gameweek-headline">This Gameweek</h2>
+          <hr>
+        </div>
+
       <div class="story">
-        <h3 class="headline">This Weeks Chumps</h3>
-        <a href="trash.html"><img src="img/bin.JPG" alt="" class="story-img"></a>
-        <p class="article">See which players are getting chucked this week</p>
+        <a href="chucks.html"><img src="img/bin.jpg" alt="" class="story-img"></a>
+        <h2 class="headline">Stinkers of the Week</h2>
+        <hr>
       </div>
+
       <div class="story">
-        <h3 class="headline">Bellerin's Hipster Choice</h3>
+        <a href="davidmay.html"><img src="img/dMay.jpg" alt="" class="story-img"></a>
+        <h2 class="headline">David May's Winning 11</h2>
+        <hr>
+      </div>
+
+      <div class="story">
         <a href="hipster.html"><img src="img/hipster.JPG" alt="" class="story-img"></a>
-        <p class="article">Put off by David May's mainstream picks? Hector has your back</p>
+        <h2 class="headline">Belarin's Hipster Choice</h2>
+        <hr>
       </div>
+
       <div class="story">
-        <h3 class="headline">Player Spotlight</h3>
-        <a href="spotlight.html"><img src="img/spotlight.JPG" alt="" class="story-img"></a>
-        <p class="article">This week: Marcus Rashford</p>
-      </div>
-      <div class="story cricket">
-        <h3 class="headline">Monty's Riddle Corner</h3>
-        <a href="monty.html"><img src="img/monty.JPG" alt="" class="story-img"></a>
-        <p class="article">Can you answer Monty's riddles? Monty Doesn't think you can!</p>
-      </div>
-      
+          <a href="monty.html"><img src="img/monty.JPG" alt="" class="story-img"></a>
+          <h2 class="headline">Monty's Riddle Corner</h2>
+          <hr>
+        </div>
 
     </div>
 
+    <footer>
+      <p>Powered by HUEL <i class="fas fa-copyright"></i></p>
+      <i class="fab fa-twitter"></i>
+    </footer>
   </div>
 
-  <script src="script.js"></script>
 </body>
-
+<script src="script.js"></script>
 </html>
