@@ -6,7 +6,10 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <link rel="stylesheet" href="style.css">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" integrity="sha512-1ycn6IcaQQ40/MKBW2W4Rhis/DbILU74C1vSrLJxCq57o941Ym01SwNsOMqvEBFlcgUa6xLiPY/NS5R+E6ztJQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"
+    integrity="sha512-1ycn6IcaQQ40/MKBW2W4Rhis/DbILU74C1vSrLJxCq57o941Ym01SwNsOMqvEBFlcgUa6xLiPY/NS5R+E6ztJQ=="
+    crossorigin="anonymous" referrerpolicy="no-referrer" />
   <title id="gameweek">Document</title>
 </head>
 
@@ -85,23 +88,30 @@
 
     <div class="captained">
 
-        <div class="most-cap">
-          <p class="most-title">Most Selected Captain</p>
-          <p id="cap-player" class="cap-player">X</p>
-          <div id="cap-img" class="cap-img"></div>
-        </div>
-  
-        <div class="most-vice-cap">
-          <p class="most-title">Most Selected Vice Captain</p>
-          <p id="vice-cap-player" class="vice-cap-player">X</p>
-          <div id="vice-cap-img" class="transferred-img"></div>
-        </div>
-  
+      <div class="most-cap">
+        <p class="most-title">Most Selected Captain</p>
+        <p id="cap-player" class="cap-player">X</p>
+        <div id="cap-img" class="cap-img"></div>
       </div>
-      <footer>
-          <p>Powered by HUEL <i class="fas fa-copyright"></i></p>
-          <i class="fab fa-twitter"></i>
-        </footer>
+
+      <div class="most-vice-cap">
+        <p class="most-title">Most Selected Vice Captain</p>
+        <p id="vice-cap-player" class="vice-cap-player">X</p>
+        <div id="vice-cap-img" class="transferred-img"></div>
+      </div>
+
+    </div>
+
+    <canvas id="game0" style="width:100%;max-width:700px;max-height:250px"></canvas>
+    <canvas id="game1" style="width:100%;max-width:700px;max-height:250px"></canvas>
+    <canvas id="game2" style="width:100%;max-width:700px;max-height:250px"></canvas>
+    <canvas id="game3" style="width:100%;max-width:700px;max-height:250px"></canvas>
+    <canvas id="game4" style="width:100%;max-width:700px;max-height:250px"></canvas>
+    <canvas id="game5" style="width:100%;max-width:700px;max-height:250px"></canvas>
+    <footer>
+      <p>Powered by HUEL <i class="fas fa-copyright"></i></p>
+      <i class="fab fa-twitter"></i>
+    </footer>
 
   </div>
 </body>
