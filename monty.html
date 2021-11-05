@@ -3,31 +3,73 @@
 
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <link rel="stylesheet" href="style.css">
-  <title>Riddle me this</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"
+    integrity="sha512-1ycn6IcaQQ40/MKBW2W4Rhis/DbILU74C1vSrLJxCq57o941Ym01SwNsOMqvEBFlcgUa6xLiPY/NS5R+E6ztJQ=="
+    crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <title>Riddle Me This</title>
 </head>
 
-<body>
-  <div class="top-bar">
-    <div class="slogan">Proper British Football News</div>
-    <div id="game-week" class="game-week"></div>
-    <div class="price">50p</div>
-  </div>
+<body class="monty-body">
   <div class="container">
     <header>
-      <h2>KPL GAZZETTE</h2>
+      <div class="top-bar">
+        <p>Fast Stats. Breakneck News</p>
+        <p id="gameweek"></p>
+      </div>
+      <a href="index.html">
+        <h1 class="site-name">KPL GAZETTE</h1>
+      </a>
     </header>
 
-    <div class="riddle-area">
-      <h1>ss</h1>
+    <p class="monty-intro">Disgraced Adjudicator Monty Panesar has forgotten the names of some Premier League players.
+      With the clues he
+      provides, help jog his memory</p>
 
+
+    <div class="riddle-area">
+
+      <div class="score-container">
+        <div class="score-icon"><img src="img/montyicon.png" alt="" srcset="">
+          <h1 id="cross1" class="cross1">X</h1>
+        </div>
+        <div class="score-icon"><img src="img/montyicon.png" alt="" srcset="">
+          <h1 id="cross2" class="cross2">X</h1>
+        </div>
+        <div class="score-icon"><img src="img/montyicon.png" alt="" srcset="">
+          <h1 id="cross3" class="cross3">X</h1>
+        </div>
+        <div class="score-icon"><img src="img/montyicon.png" alt="" srcset="">
+          <h1 id="cross4" class="cross4">X</h1>
+        </div>
+        <div class="score-icon"><img src="img/montyicon.png" alt="" srcset="">
+          <h1 id="cross5" class="cross5">X</h1>
+        </div>
+      </div>
       <div class="clue-container" id="clue-container"></div>
-      <input id="riddle-input" type="text" class="answer" placeholder="Player Surname">
-      <button type="button" id="riddle-submit" class="submit">Submit</button>
-      <button type="button" id="riddle-refresh" class="refresh">New Riddle</button>
+      <div class="input-area">
+        <input class="riddle-input" id="riddle-input" type="text" class="answer" placeholder="Type Player Surname Here">
+        <button class="riddle-submit" type="button" id="riddle-submit" class="submit">Submit</button>
+        <button class="riddle-refresh" type="button" id="riddle-refresh" class="refresh">New Riddle</button>
+      </div>
     </div>
+
+    <div id="overlay-win" class="overlay-win">
+      <p>WELL DONE. LOVELY</p>
+      <button id="play-again">PLAY AGAIN</button>
+    </div>
+
+    <div id="overlay-lose" class="overlay-lose">
+      <p>YOU LOSE. MONTY HAS BEEN BANISHED</p>
+      <button id="try-again">PLAY AGAIN</button>
+    </div>
+
+    <footer>
+      <p>Powered by HUEL <i class="fas fa-copyright"></i></p>
+      <i class="fab fa-twitter"></i>
+    </footer>
     <script src="script.js"></script>
 </body>
 
