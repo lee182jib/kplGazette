@@ -2,6 +2,9 @@
 const gameWeekDisplay = document.getElementById('gameweek');
 const gameWeekHeadline = document.getElementById('gameweek-headline');
 
+// Manager of the week
+
+
 // Gameweek DOM
 const days = document.getElementById('days');
 const hours = document.getElementById('hours');
@@ -14,7 +17,7 @@ const freeHit = document.getElementById('freehit');
 const wildCard = document.getElementById('wildcard');
 const trippleCaptain = document.getElementById('tripplecaptain');
 
-const selectedPlayer = document.getElementById('selected-player');
+const Monty = document.getElementById('selected-player');
 const selectedImg = document.getElementById('selected-img');
 
 const transferredPlayer = document.getElementById('transferred-player');
@@ -55,19 +58,44 @@ const defStatHip = document.getElementById('def-stat-hip');
 const midStatHip = document.getElementById('mid-stat-hip');
 const fwdStatHip = document.getElementById('fwd-stat-hip');
 
+// Monty DOM
+const clueContainer = document.getElementById('clue-container');
+const riddleInput = document.getElementById('riddle-input');
+const riddleSubmit = document.getElementById('riddle-submit');
+const riddleRefresh = document.getElementById('riddle-refresh')
+
+const cross1 = document.getElementById('cross1');
+const cross2 = document.getElementById('cross2');
+const cross3 = document.getElementById('cross3');
+const cross4 = document.getElementById('cross4');
+const cross5 = document.getElementById('cross5');
+
+const overlayWin = document.getElementById('overlay-win');
+const playAgain = document.getElementById('play-again');
+const overlayLose = document.getElementById('overlay-lose');
+const tryAgain = document.getElementById('try-again');
+
+// Manager of the week
+
+
+
+
+
+
 // find  and display current gameweek stats
 function findGameWeek() {
+  var gameWeek = 0;
   fetch('bootstrap-static.json')
     .then(res => res.json())
     .then(data => {
       const gameWeeks = data.events;
       const players = data.elements;
-      
+
 
       for (i = 0; i < gameWeeks.length - 1; i++) {
         if (gameWeeks[i].is_current === true) {
           // get current week
-          var gameWeek = gameWeeks[i];
+          gameWeek = gameWeeks[i];
           console.log(gameWeek);
           gameWeekDisplay.innerHTML = `${gameWeek.name}`;
           gameWeekHeadline.innerHTML = `${gameWeek.name} at a Glance`;
@@ -78,17 +106,17 @@ function findGameWeek() {
       }
       var deadline = deadlineWeek.deadline_time;
 
-      
+
       console.log(new Date(deadline));
 
       // find most selected player
       const mostSelectedId = gameWeek.most_selected;
       for (i = 0; i < players.length; i++) {
         if (mostSelectedId === players[i].id) {
-          var mostSelectedPlayer = players[i];
+          var mostMonty = players[i];
         }
       }
-      console.log(mostSelectedPlayer);
+      console.log(mostMonty);
 
       // find most transferred in player
       const mostTransferredInId = gameWeek.most_transferred_in;
@@ -114,8 +142,8 @@ function findGameWeek() {
       }
 
       // display most selected/transferred player
-      selectedPlayer.innerHTML = `${mostSelectedPlayer.web_name}<hr>Selected by ${mostSelectedPlayer.selected_by_percent}% of managers`;
-      selectedImg.innerHTML = `<img src="https://resources.premierleague.com/premierleague/photos/players/250x250/p${mostSelectedPlayer.photo.replace('jpg', 'png')}" alt=""></div>`;
+      Monty.innerHTML = `${mostMonty.web_name}<hr>Selected by ${mostMonty.selected_by_percent}% of managers`;
+      selectedImg.innerHTML = `<img src="https://resources.premierleague.com/premierleague/photos/players/250x250/p${mostMonty.photo.replace('jpg', 'png')}" alt=""></div>`;
 
       transferredPlayer.innerHTML = `${mostTransferredInPlayer.web_name}<hr>${mostTransferredInPlayer.transfers_in_event.toLocaleString()} transfers this week`;
       transferredImg.innerHTML = `<img src="https://resources.premierleague.com/premierleague/photos/players/250x250/p${mostTransferredInPlayer.photo.replace('jpg', 'png')}" alt=""></div>`;
@@ -156,26 +184,137 @@ function findGameWeek() {
 
       console.log(gameWeek);
 
-      
+
 
       benchBoost.innerHTML = `${benchBoosts.toLocaleString()}`;
       freeHit.innerHTML = `${freeHits.toLocaleString()}`;
       wildCard.innerHTML = `${wildCards.toLocaleString()}`;
       trippleCaptain.innerHTML = `${trippleCaptains.toLocaleString()}`;
-    })
+    });
+
+  function findH2H(initials1, initials2, gameNum) {
+    fetch('week10data/' + initials1 + 'week10.json')
+      .then(res => res.json())
+      .then(data => {
+        var weeks = data.current;
+
+        fetch('week10data/' + initials2 + 'week10.json')
+          .then(res => res.json())
+          .then(data2 => {
+            var weeks2 = data2.current;
+            console.log(weeks2);
+
+            fetch('week10data/h2h.json')
+              .then(res => res.json())
+              .then(h2hData => {
+                var team1and2 = [h2hData.results[gameNum].entry_1_name, h2hData.results[gameNum].entry_2_name];
+                console.log(game1);
+                console.log(gameWeek);
+              
+
+
+            var xValues = ['GW1', 'GW2', 'GW3', 'GW4', 'GW5', 'GW6', 'GW7', 'GW8', 'GW9'];
+            var yValues = [
+              weeks[0].points,
+              weeks[1].points,
+              weeks[2].points,
+              weeks[3].points,
+              weeks[4].points,
+              weeks[5].points,
+              weeks[6].points,
+              weeks[7].points,
+              weeks[8].points,
+              weeks[9].points,
+             
+            ];
+
+            var yValues2 = [
+              weeks2[0].points,
+              weeks2[1].points,
+              weeks2[2].points,
+              weeks2[3].points,
+              weeks2[4].points,
+              weeks2[5].points,
+              weeks2[6].points,
+              weeks2[7].points,
+              weeks2[8].points,
+              weeks2[9].points,
+           
+            ];
+
+            new Chart('game' + gameNum, {
+              type: "line",
+              data: {
+                labels: xValues,
+                datasets: [{
+                    label: team1and2[0],
+                    borderColor: "#446df6",
+                    data: yValues,
+                    fill: false,
+                    lineTension: 0,
+
+                  },
+                  {
+                    label: team1and2[1],
+                    borderColor: "#b4e1ff",
+                    data: yValues2,
+                    fill: false,
+                    lineTension: 0,
+                  }
+                ]
+              },
+              options: {
+
+                title: {
+                  display: false,
+                  text: 'Game ' + gameNum+1
+                },
+
+                legend: {
+                  display: true,
+                },
+                maintainAspectRatio: false,
+                responsive: true,
+                scales: {
+                  yAxes: [{
+                    ticks: {
+                      min: 0,
+                      max: 100,
+                      stepSize: 10,
+
+                    }
+                  }]
+                },
+
+              }
+            })
+            });
+          })
+
+      })
+  }
+
+  findH2H('LW', 'TN', 0);
+  findH2H('CT', 'DH', 1);
+  findH2H('PP', 'WN', 2);
+  findH2H('TW', 'PN', 3);
+  findH2H('CE', 'DP', 4);
+  findH2H('AE', 'BW', 5);
+
+
+
 }
 
 // Chucks
 
-const reasons = ['Cancelled', 'Deported', 'Shit', 'Caught flouting lockdown rules', 'Struck a fan', 'Prick', 'Some changing room drama'];
+const reasons = ['Caught drunk driving', 'Cancelled', 'Deported', 'Shit', 'Caught flouting lockdown rules', 'Struck a fan', 'Prick', 'Changing room drama', 'Massive allegations'];
 
 function createChuckedBox(item) {
   const card = document.createElement('div');
   let {
     transfers_out,
     transfers_out_event,
-    first_name,
-    second_name,
+    web_name,
     news,
     photo
   } = item;
@@ -188,7 +327,7 @@ function createChuckedBox(item) {
 
   card.innerHTML = `
     <div class="player-card">
-    <h3 class="player-name">${first_name}  ${second_name}</h3>
+    <h3 class="player-name">${web_name}</h3>
     <div class="player-photo"><img src="https://resources.premierleague.com/premierleague/photos/players/250x250/p${photo.replace('jpg', 'png')}" alt=""></div>
     <div class="transfers-news">
       <div class="player-transfers">${transfers_out_event.toLocaleString()} transfers out this week</div>
@@ -218,8 +357,6 @@ function fetchChuckData() {
 fetchChuckData();
 
 // David May
-
-
 // find best keeper
 function findBestGk() {
   fetch('bootstrap-static.json')
@@ -409,7 +546,7 @@ function createFwdBoxes(item) {
     <p>${total_points}</p>
   </div>
   `);
-  
+
 }
 
 // Hipster
@@ -528,12 +665,10 @@ function createHipsterDefBoxes(item) {
     selected_by_percent
   } = item;
 
-
   card.innerHTML = `
   <div class="may-card"><img class="player-photo" src="https://resources.premierleague.com/premierleague/photos/players/250x250/p${photo.replace('jpg', 'png')}" alt="">
   <p class="may-name">${web_name}</p>
-  </div>
-  
+  </div>  
 `
   defenderAreaHipster.appendChild(card);
 
@@ -559,13 +694,11 @@ function createHipsterMidBoxes(item) {
     total_points
   } = item;
 
-
   card.innerHTML = `
   <div class="may-card"><img class="player-photo" src="https://resources.premierleague.com/premierleague/photos/players/250x250/p${photo.replace('jpg', 'png')}" alt="">
   <p class="may-name">${web_name}
   </p>
-  </div>
-  
+  </div> 
 `
   midfielderAreaHipster.appendChild(card);
 
@@ -591,13 +724,12 @@ function createHipsterFwdBoxes(item) {
     total_points
   } = item;
 
-
   card.innerHTML = `
   <div class="may-card"><img class="player-photo" src="https://resources.premierleague.com/premierleague/photos/players/250x250/p${photo.replace('jpg', 'png')}" alt="">
   <p class="may-name">${web_name}</p>
-  </div>
-  
+  </div> 
 `
+
   forwardAreaHipster.appendChild(card);
 
   fwdStatHip.insertAdjacentHTML('beforeend', `
@@ -612,31 +744,110 @@ function createHipsterFwdBoxes(item) {
 
 // Riddle time
 
-let score = 0;
-let randomPlayer = 0;
-
 function fetchRiddleData() {
   fetch('bootstrap-static.json')
     .then(res => res.json())
     .then(data => {
       const players = data.elements;
-
       const teams = data.teams;
 
-      // sort and shorten list to top 350 players
+      riddleInput.value = ''
+
+      // Sort and remove players with 0 points
       let goodPlayers = players.sort(function (a, b) {
-        return b.points_per_game - a.points_per_game;
+        return b.total_points - a.total_points;
+      })
+      goodPlayers = goodPlayers.splice(0, 300);
+
+      console.log(goodPlayers);
+      const randomPlayer = goodPlayers[Math.floor(Math.random() * goodPlayers.length)]
+
+      const {
+        points_per_game,
+        total_points,
+        minutes,
+        web_name,
+        team_code
+      } = randomPlayer;
+
+      const correctAnswer = randomPlayer.web_name.normalize('NFC');
+
+      function getTeamName() {
+        for (let i = 0; i < 20; i++) {
+          if (team_code === teams[i].code) {
+            return teams[i].name;
+          }
+        }
+      }
+
+      console.log(correctAnswer);
+
+      let montyLives = 5;
+
+      if (montyLives === 5) {
+        cross1.style.display = 'none';
+        cross2.style.display = 'none';
+        cross3.style.display = 'none';
+        cross4.style.display = 'none';
+        cross5.style.display = 'none';
+      }
+
+      riddleRefresh.addEventListener('click', () => {
+        fetchRiddleData();
       });
-      goodPlayers = goodPlayers.splice(0, 350);
 
+      playAgain.addEventListener('click', () => {
+        overlayWin.style.display = 'none';
+        
+        fetchRiddleData();
+      })
 
+      tryAgain.addEventListener('click', () =>{
+        overlayLose.style.display = 'none';
+        fetchRiddleData();
+      })
 
-      randomPlayer = goodPlayers[Math.floor(Math.random() * 400)];
+      
 
-      console.log(randomPlayer.first_name, randomPlayer.second_name);
+      riddleSubmit.addEventListener('click', () => {
+        if (correctAnswer === riddleInput.value) {
+          console.log(riddleInput.value);
+          overlayWin.style.display = 'inline';
+
+          fetchRiddleData();
+        } else {
+          montyLives--;
+          console.log(montyLives);
+
+          if (montyLives === 4) {
+            cross1.style.display = 'inline';
+          } else if (montyLives === 3) {
+            cross2.style.display = 'inline';
+          } else if (montyLives === 2) {
+            cross3.style.display = 'inline';
+          } else if (montyLives === 1) {
+            cross4.style.display = 'inline';
+          } else if (montyLives === 0) {
+            cross5.style.display = 'inline';
+            overlayLose.style.display = 'flex';
+
+            fetchRiddleData();
+
+          }
+        }
+      })
+
+      clueContainer.innerHTML = `
+    <div class="clue">He plays for ${getTeamName()}</div>
+    <div class="clue">The second letter of his surname is '${web_name.charAt(1)}'</div>
+    <div class="clue">On average, he scores ${points_per_game} points per game</div>
+    <div class="clue">He has scored ${total_points} points this season</div>
+    <div class="clue">He has played ${minutes} minutes this season</div>
+    <div>BUT WHO IS HE?</div>
+    `
     })
-}
 
+}
 
 
 findBestGk();
@@ -649,6 +860,156 @@ findHipsterDefenders();
 findHipsterMidfielders();
 findHipsterForwards();
 
-fetchRiddleData();
-
 findGameWeek()
+
+fetchRiddleData()
+
+/*
+
+// Monty DOM
+const wordEl = document.getElementById('word');
+const wrongLettersEl = document.getElementById('wrong-letters');
+const playAgainBtn = document.getElementById('play-button');
+const popup = document.getElementById('popup-container');
+const notification = document.getElementById('notification-container');
+const finalMessage = document.getElementById('final-message');
+const input = document.getElementById('monty-input');
+const clue1 = document.getElementById('clue1');
+const clue2 = document.getElementById('clue2');
+const clue3 = document.getElementById('clue3');
+
+const figureParts = document.querySelectorAll('.figure-part');
+
+const correctLetters = ['a', 'e', 'i'];
+const wrongLetters = [];
+
+function findMontyPlayer() {
+  fetch('bootstrap-static.json')
+    .then(res => res.json())
+    .then(data => {
+      const players = data.elements;
+      const montyPlayers = [];
+      const teams = data.teams;
+      for (let i = 0; i < players.length; i++) {
+        montyPlayers.push(players[i].web_name);
+      }
+      var selectedMontyPlayer = montyPlayers[Math.floor(Math.random() * montyPlayers.length)].toLowerCase();
+      console.log(selectedMontyPlayer);
+
+
+
+
+
+
+
+      var {
+        web_name
+      } = selectedMontyPlayer;
+
+
+      clue1.innerHTML = `His name is ${selectedMontyPlayer}`
+
+      function displayWord() {
+        wordEl.innerHTML = `
+          ${selectedMontyPlayer
+            .split('')
+            .map(letter => `
+            <span class="letter">
+              ${correctLetters.includes(letter) ? letter : ''}
+              </span>
+              `).join('')}
+        `;
+        const innerWord = wordEl.innerText.replace(/\n/g, '');
+
+        if (innerWord === selectedMontyPlayer) {
+          finalMessage.innerText = 'Congratulations!';
+          popup.style.display = 'flex';
+        }
+      }
+      //Update the wrong letters
+      function updateWrongLettersEl() {
+        wrongLettersEl.innerHTML = `
+          ${wrongLetters.length > 0 ? '<p>Wrong</p>' : ''}
+          ${wrongLetters.map(letter => `<span>${letter}</span>`)}
+        `;
+
+        figureParts.forEach((part, index) => {
+          const errors = wrongLetters.length;
+
+          if (index < errors) {
+            part.style.display = 'block';
+          } else {
+            part.style.display = 'none';
+          }
+        })
+
+        // Check if lost
+        if (wrongLetters.length === figureParts.length) {
+          finalMessage.innerText = `You lose! It was, of course ${selectedMontyPlayer}`;
+          popup.style.display = 'flex';
+        }
+      }
+
+
+      // show notification
+      function showNotification() {
+        notification.classList.add('show');
+
+        setTimeout(() => {
+          notification.classList.remove('show');
+        }, 2000)
+      }
+
+      //Keydown letter press
+      window.addEventListener('keydown', e => {
+        if (e.key >= 'a' && e.key <= 'z') {
+          const letter = e.key;
+
+          if (selectedMontyPlayer.includes(letter)) {
+            if (!correctLetters.includes(letter)) {
+              correctLetters.push(letter);
+
+              displayWord()
+            } else {
+              showNotification()
+            }
+          } else {
+            if (!wrongLetters.includes(letter)) {
+              wrongLetters.push(letter);
+
+              updateWrongLettersEl();
+            } else {
+              showNotification()
+            }
+          }
+        }
+      });
+
+
+      displayWord();
+
+      // Restart game and play again
+      playAgainBtn.addEventListener('click', () => {
+        // Empty arrays 
+        correctLetters.splice(0);
+        wrongLetters.splice(0);
+
+        selectedMontyPlayer = montyPlayers[Math.floor(Math.random() * montyPlayers.length)].toLowerCase();
+
+        displayWord();
+
+        updateWrongLettersEl();
+
+        popup.style.display = 'none';
+
+        input.value = '';
+      })
+
+    })
+
+
+
+}
+
+findMontyPlayer()
+*/
